@@ -23,7 +23,7 @@ var FontLoader = function(doc, win) {
 	var _woff2 = (function() {
 	  if (_win.FontFace) {
 	    var fontFace = new FontFace('t', 'url(data:application/font-woff2,) format(woff2)', {});
-	    fontFace.load();
+	    fontFace.load();  // this throws a network error. why?
 	    return (fontFace.status === 'loading') ? true: false;
 	  }
 	  return false;
@@ -35,8 +35,6 @@ var FontLoader = function(doc, win) {
 
 
 	// Methods
-	// return promise
-	// beef up
 	function _getBinary (file) {
 	    var req = new XMLHttpRequest();
 	    req.open('GET', file, false);
@@ -54,7 +52,6 @@ var FontLoader = function(doc, win) {
 	    }
 	};
 
-	// good as is
 	function _base64Encode(str) {
 	    var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	    var encodedStr = '', i = 0, len = str.length, c1, c2, c3;
@@ -83,7 +80,7 @@ var FontLoader = function(doc, win) {
 	    return encodedStr;
 	};
 
-	// iterate over data uris and write to document
+	// Iterate over data uris and write to document
 	function _writeToDocument(fontObj) {
 
 		var head = _doc.head || _doc.getElementsByTagName('head')[0],   
