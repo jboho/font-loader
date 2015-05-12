@@ -34,16 +34,23 @@ var FontLoader = function(doc) {
 
 
 	// Methods
-
-	// want more error handling here
 	// return promise
 	// beef up
 	function _getBinary (file) {
-	    var xhr = new XMLHttpRequest();
-	    xhr.open("GET", file, false);
-	    xhr.overrideMimeType("text/plain; charset=x-user-defined");
-	    xhr.send(null);
-	    return xhr.responseText;
+	    var req = new XMLHttpRequest();
+	    req.open('GET', file, false);
+	    req.overrideMimeType('text/plain; charset=x-user-defined');
+	    try
+	    {
+			req.send(null);
+			if(req.readyState === 4) {
+            	return _base64Encode(req.responseText);    
+            }
+	    }
+	    catch(e)
+	    {
+	    	console.log('Problem with request: ', e.message);
+	    }
 	};
 
 	// good as is
@@ -94,16 +101,15 @@ var FontLoader = function(doc) {
 
 	function _init(fontArr) {
 		if (!fontArr) return;
-
 		fontArr.forEach(function(font, index) {
 			try
 			{	
-				font.url = _prefix + _base64Encode(_getBinary(font.uri)) + "." + _suffix;
+				font.url = _prefix + _getBinary(font.url + "." + _suffix);
 				_writeToDocument(font);
 			}
 			catch(e)
 			{
-				console.log(e.message);
+				console.log('Problem with initilization: ', e.message);
 			}
 		});
 
