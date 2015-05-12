@@ -16,7 +16,7 @@ TODO:
 var FontLoader = function(doc) {
 	
 	// Variables
-	var _doc = doc || document;
+	var _doc = doc || window;
 
 	// WOFF2 test
 	var _woff2 = (function() {
