@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Font loader</title>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+	<div class="container">
+		<h1>The quick brown fox jumps over the lazy dog</h1>
+		<h2>The quick brown fox jumps over the lazy dog</h2>
+		<h3>The quick brown fox jumps over the lazy dog</h3>
+		<h4>The quick brown fox jumps over the lazy dog</h4>
+		<h5>The quick brown fox jumps over the lazy dog</h5>
+		<h6>The quick brown fox jumps over the lazy dog</h6>
+		
+		<p>Lorem ipsum dolor sit amet, <strong>consectetur adipisicing elit</strong>. Architecto culpa <em>ducimus aliquam maiores maxime</em>. Consectetur eaque cumque illo veniam atque magnam, molestiae esse dicta autem omnis laboriosam suscipit distinctio mollitia.</p>
+
+	</div>
+
+	<script type="text/javascript" src="../font-loader.js"></script>
+	<script>
+		var fonts = [
+			{
+				name:   "OpenSans",
+				weight: "400",
+				style:  "normal",
+				url:    "fonts/OpenSansReg400"	
+			},
+			{
+				name:   "OpenSans",
+				weight: "700",
+				style:  "normal",
+				url:    "fonts/OpenSansReg700"		
+			},
+			{
+				name:   "OpenSans",
+				weight: "400",
+				style:  "italic",
+				url:    "fonts/OpenSansObq400"	
+			},
+			{
+				name:   "Raleway",
+				weight: "300",
+				style:  "normal",
+				url:    "fonts/RalewayReg300"	
+			},
+		];
+
+		var fl = FontLoader();
+		fl.init(fonts);
+
+	</script>
+</body>
+</html>
+
