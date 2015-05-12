@@ -13,14 +13,15 @@ TODO:
 -- support for local fonts
 */
 
-var FontLoader = function(doc) {
+var FontLoader = function(doc, win) {
 	
 	// Variables
-	var _doc = doc || window;
+	var _doc = doc || document;
+	var _win = win || window;
 
 	// WOFF2 test
 	var _woff2 = (function() {
-	  if (_doc.FontFace) {
+	  if (_win.FontFace) {
 	    var fontFace = new FontFace('t', 'url(data:application/font-woff2,) format(woff2)', {});
 	    fontFace.load();
 	    return (fontFace.status === 'loading') ? true: false;
@@ -86,9 +87,9 @@ var FontLoader = function(doc) {
 	function _writeToDocument(fontObj) {
 
 		var head = _doc.head || _doc.getElementsByTagName('head')[0],   
-		    style = document.createElement('style');
+		    style = _doc.createElement('style');
 
-		style.appendChild(document.createTextNode("\
+		style.appendChild(_doc.createTextNode("\
 		@font-face {\
 		    font-family: '" + fontObj.name + "';\
 		    src: url('" + fontObj.url + "') format('" + _suffix + "');\
