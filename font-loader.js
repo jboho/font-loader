@@ -21,10 +21,17 @@ var FontLoader = function(doc, win) {
 
 	// WOFF2 test
 	var _woff2 = (function() {
-	  if (_win.FontFace) {
+	
+	if (_win.FontFace) {
 	    var fontFace = new FontFace('t', 'url(data:application/font-woff2,) format(woff2)', {});
-	    fontFace.load();  // this throws a network error. why?
-	    return (fontFace.status === 'loading') ? true: false;
+		fontFace.load().then(function(result){
+		    // hooray
+		}).catch(function(e){
+			// error will fire for some reason -- 
+			// haven't figured it out yet, but at least it is caught
+		    // console.log('Promise error: ', e.message);
+		});
+	    return (fontFace.status === 'loading') ? true : false;
 	  }
 	  return false;
 	}());
@@ -82,7 +89,6 @@ var FontLoader = function(doc, win) {
 
 	// Iterate over data uris and write to document
 	function _writeToDocument(fontObj) {
-
 		var head = _doc.head || _doc.getElementsByTagName('head')[0],   
 		    style = _doc.createElement('style');
 
